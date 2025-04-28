@@ -1,8 +1,8 @@
 package com.pluralsight;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-// we need the Ledger to load the transactions, then pass them to the Ledger and then we can show, filter, or report to user
 public class Ledger {
 
     private List<Transaction> transactions;
@@ -12,19 +12,32 @@ public class Ledger {
     }
 
     public void showAllTransactions() {
-
+        System.out.println("\nAll Transactions");
+        for (Transaction t : transactions) {
+            System.out.println(t.getDate() + " " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
+        }
     }
 
     public void showDeposits() {
+        System.out.println("\nAll Deposits");
 
+        for (Transaction t : transactions) {
+            // .compareTo(BigDecimal.ZERO returns 1 if the number inside it > 0, and returns -1 if the number inside it <0
+            if (t.getAmount().compareTo(BigDecimal.ZERO) > 0) {
+                System.out.println(t.getDate() + " " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
+            }
+
+        }
     }
 
     public void showCredits() {
+        System.out.println("\nAll Credits");
 
-    }
-
-    public void showReports() {
-        // display reports and run selected report
+        for (Transaction t : transactions) {
+            if (t.getAmount().compareTo(BigDecimal.ZERO) < 0) {
+                System.out.println(t.getDate() + " " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
+            }
+        }
     }
 
 }
