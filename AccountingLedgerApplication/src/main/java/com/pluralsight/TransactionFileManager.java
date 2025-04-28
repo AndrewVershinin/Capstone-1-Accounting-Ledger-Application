@@ -1,16 +1,42 @@
 package com.pluralsight;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 // this class does reading and writing to transactions.csv
 public class TransactionFileManager {
 
-//    public static List<Transaction> loadTransactions(String filename) {
-//        // read from csv and return List<Transaction>
-//
-//    }
+    public static List<Transaction> loadTransactions(String filename) {
+        // read from csv and return List<Transaction>
+        List<Transaction> transactions = new ArrayList<>();
+
+        try {
+            BufferedReader bufReader = new BufferedReader(new FileReader(filename));
+            String line;
+            while ((line = bufReader.readLine()) != null) {
+
+                String[] parts = line.split("\\|");
+
+                LocalDate date = LocalDate.parse(parts[0]);
+                LocalTime time = LocalTime.parse(parts[1]);
+                String description = parts[2];
+                String vendor = parts[3];
+                BigDecimal amount = new BigDecimal(parts[4]);
+
+                Transaction transaction = new Transaction(date, time, description, vendor, amount);
+
+                transactions.add(transaction);
+            }
+            bufReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return transactions;
+    }
 
     public static void saveTransaction(String filename, Transaction transaction) {
         // add a transaction to the CSV file
