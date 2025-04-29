@@ -127,7 +127,6 @@ public class Ledger {
                     return; // exists and goes back to the ledger menu
             }
 
-
         }
     }
 

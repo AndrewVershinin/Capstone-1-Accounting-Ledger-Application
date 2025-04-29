@@ -11,23 +11,23 @@ public class AccountingLedgerApp {
 
         Scanner input = new Scanner(System.in);
 
-        List<Transaction> transactions = TransactionFileManager.loadTransactions("src/main/resources/transactions.csv");
-
-        for (Transaction t : transactions) {
-            System.out.println(t.getDate() + " " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
-        }
-
-
-        // test transaction
-//        Transaction t = new Transaction(
-//                LocalDate.now(),
-//                LocalTime.now(),
-//                "Just the second test",
-//                "ATM",
-//                new BigDecimal("2000.00")
+//        List<Transaction> transactions = TransactionFileManager.loadTransactions("src/main/resources/transactions.csv");
 //
-//        );
+//        for (Transaction t : transactions) {
+//            System.out.println(t.getDate() + " " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
+//        }
 
-//        TransactionFileManager.saveTransaction("src/main/resources/transactions.csv", t);
+
+//         test transaction
+        Transaction t = new Transaction(
+                LocalDate.now().minusYears(1),
+                LocalTime.now(),
+                "Invoice",
+                "Pelmeny",
+                new BigDecimal("490.00")
+
+        );
+
+        TransactionFileManager.saveTransaction("src/main/resources/transactions.csv", t);
     }
 }
