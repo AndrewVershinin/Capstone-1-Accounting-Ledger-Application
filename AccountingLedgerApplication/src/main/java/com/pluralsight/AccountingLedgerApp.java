@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -41,6 +42,8 @@ public class AccountingLedgerApp {
                 case "X":
                     running = false; // exit loop, not method
                     break;
+                default:
+                    System.out.println("Choose correct section");
             }
         }
         System.out.println("Thank you for using our App.");
@@ -88,7 +91,8 @@ public class AccountingLedgerApp {
 
         System.out.print("Enter amount: ");
         String amountInput = input.nextLine();
-        BigDecimal amount = new BigDecimal(amountInput);
+        // add setScale and rounding because it is money. half_up do round in up 1.
+        BigDecimal amount = new BigDecimal(amountInput).setScale(2, RoundingMode.HALF_UP);
 
         if (!isDeposit) {
             amount = amount.negate();
