@@ -8,10 +8,42 @@ import java.util.Scanner;
 
 public class AccountingLedgerApp {
     public static void main(String[] args) {
+
         Scanner input = new Scanner(System.in);
 
+        // load transactions
         List<Transaction> transactions = TransactionFileManager.loadTransactions("src/main/resources/transactions.csv");
+        // create ledger with added transactions to filter it
+        Ledger ledger = new Ledger(transactions);
 
+        boolean running = true;
+
+        while (running) {
+            System.out.println("\nHome Menu");
+            System.out.println("D. Add Deposit");
+            System.out.println("P. Make Payment");
+            System.out.println("L. Ledger");
+            System.out.println("X. Exit");
+            System.out.print("Enter selection: ");
+
+            String userChoice = input.nextLine().toUpperCase();
+
+            switch (userChoice) {
+                case "D":
+                    addTransaction(input, transactions, true);
+                    break;
+                case "P":
+                    addTransaction(input, transactions, false);
+                    break;
+                case "L":
+                    ledgerMenu(input, ledger);
+                    break;
+                case "X":
+                    running = false; // exit loop, not method
+                    break;
+            }
+        }
+        System.out.println("Thank you for using our App.");
 
     }
 
@@ -36,10 +68,11 @@ public class AccountingLedgerApp {
                     ledger.showDeposits();
                     break;
                 case "P":
-                    ledger.showCredits();
+                    ledger.showPayments();
                     break;
                 case "R":
                     ledger.showReports();
+                    break;
                 case "H":
                     return;
             }

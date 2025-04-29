@@ -32,7 +32,7 @@ public class Ledger {
         }
     }
 
-    public void showCredits() {
+    public void showPayments() {
         System.out.println("\nAll Credits");
 
         for (Transaction t : transactions) {
