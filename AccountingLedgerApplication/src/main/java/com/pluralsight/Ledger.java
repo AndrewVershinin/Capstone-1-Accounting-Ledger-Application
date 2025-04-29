@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -42,7 +43,6 @@ public class Ledger {
     }
 
     public void showReports() {
-        // for reports logic
         Scanner input = new Scanner(System.in);
 
         while (true) {
@@ -58,23 +58,70 @@ public class Ledger {
             int userChoice = input.nextInt();
             input.nextLine();
 
+            LocalDate today = LocalDate.now();
+
             switch (userChoice) {
                 case 1:
-                    System.out.println("Month To Date");
+                    System.out.println("Month To Date Report");
+
+                    LocalDate firstDayOfMonth = today.withDayOfMonth(1);
+
+                    for (Transaction t : transactions) {
+                       LocalDate eachDate = t.getDate();
+                       // !isBefore returns true if we have no days before our startOfMonth and !isAfter returns true if we have no days after today.
+                       if (!eachDate.isBefore(firstDayOfMonth) && !eachDate.isAfter(today)) {
+                           System.out.println(t.getDate() + " " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
+                       }
+                    }
                     break;
                 case 2:
-                    System.out.println("Previous Month");
+                    System.out.println("Previous Month Report");
+
+                    LocalDate firstDayOfPrevMonth = today.minusMonths(1).withDayOfMonth(1);
+                    LocalDate lastDayOfPrevMonth = today.withDayOfMonth(1).minusDays(1);
+
+                    for (Transaction t : transactions) {
+                        LocalDate eachDate = t.getDate();
+                        if (!eachDate.isBefore(firstDayOfPrevMonth) && !eachDate.isAfter(lastDayOfPrevMonth)) {
+                            System.out.println(t.getDate() + " " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
+                        }
+                    }
                     break;
                 case 3:
-                    System.out.println("Year To Date");
+                    System.out.println("Year To Date Report");
+
+                    LocalDate firstDayOfYear = today.withDayOfYear(1);
+
+                    for (Transaction t : transactions) {
+                        LocalDate eachDate = t.getDate();
+                        if (!eachDate.isBefore(firstDayOfYear) && !eachDate.isAfter(today)) {
+                            System.out.println(t.getDate() + " " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
+                        }
+                    }
                     break;
                 case 4:
-                    System.out.println("Previous Year");
+                    System.out.println("Previous Year Report");
+
+                    LocalDate firstDayOfPrevYear = today.minusYears(1).withDayOfYear(1);
+                    LocalDate lastDayOfPrevYear = today.withDayOfYear(1).minusDays(1);
+
+                    for (Transaction t : transactions) {
+                        LocalDate eachDay = t.getDate();
+                        if (!eachDay.isBefore(firstDayOfPrevYear) && !eachDay.isAfter(lastDayOfPrevYear)) {
+                            System.out.println(t.getDate() + " " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
+                        }
+                    }
                     break;
                 case 5:
+                    System.out.println("Search By Vendor");
                     System.out.print("Enter vendor name to search: ");
-                    String vendor = input.nextLine();
-                    System.out.println("Search results for vendor: " + vendor);
+                    String vendorSearch = input.nextLine().toLowerCase();
+
+                    for (Transaction t : transactions) {
+                        if (t.getVendor().toLowerCase().contains(vendorSearch)) {
+                            System.out.println(t.getDate() + " " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
+                        }
+                    }
                     break;
                 case 0:
                     return; // exists and goes back to the ledger menu
