@@ -59,34 +59,4 @@ public class TransactionFileManager {
             e.printStackTrace();
         }
     }
-
-    private static void addTransaction(Scanner input, List<Transaction> transactions, boolean isDeposit) {
-        System.out.print("Enter description: ");
-        String description = input.nextLine();
-
-        System.out.print("Enter vendor: ");
-        String vendor = input.nextLine();
-
-        System.out.print("Enter amount: ");
-        String amountInput = input.nextLine();
-        BigDecimal amount = new BigDecimal(amountInput);
-
-        if (!isDeposit) {
-            amount = amount.negate();
-        }
-
-        Transaction freshTransaction = new Transaction(
-                LocalDate.now(),
-                LocalTime.now(),
-                description,
-                vendor,
-                amount
-        );
-        // add to the in-memory. If we don't so we need to rerun code to see new transaction.
-        transactions.add(freshTransaction);
-        // save in to the CSV
-        saveTransaction("src/main/resources/transactions.csv", freshTransaction);
-
-        System.out.println("Transaction saved successfully");
-    }
 }

@@ -67,11 +67,11 @@ public class Ledger {
                     LocalDate firstDayOfMonth = today.withDayOfMonth(1);
 
                     for (Transaction t : transactions) {
-                       LocalDate eachDate = t.getDate();
-                       // !isBefore returns true if we have no days before our startOfMonth and !isAfter returns true if we have no days after today.
-                       if (!eachDate.isBefore(firstDayOfMonth) && !eachDate.isAfter(today)) {
-                           System.out.println(t.getDate() + " " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
-                       }
+                        LocalDate eachDate = t.getDate();
+                        // !isBefore returns true if we have no days before our startOfMonth and !isAfter returns true if we have no days after today.
+                        if (!eachDate.isBefore(firstDayOfMonth) && !eachDate.isAfter(today)) {
+                            System.out.println(t.getDate() + " " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getAmount());
+                        }
                     }
                     break;
                 case 2:
@@ -129,5 +129,4 @@ public class Ledger {
 
         }
     }
-
 }
