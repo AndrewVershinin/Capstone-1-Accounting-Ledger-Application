@@ -129,4 +129,13 @@ public class Ledger {
 
         }
     }
+    public void customSearch() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter start date (yyyy-MM-dd) or leave blank: ");
+        String startDateInput = input.nextLine();
+        LocalDate startDate = startDateInput.isEmpty() ? null : LocalDate.parse(startDateInput);
+
+        // collect user inputs using logic above. Then loop through the Transactions and using if statement do print.
+    }
 }
