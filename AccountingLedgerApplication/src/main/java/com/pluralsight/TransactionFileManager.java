@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
 
 // this class does reading and writing to transactions.csv
 public class TransactionFileManager {
@@ -45,8 +46,10 @@ public class TransactionFileManager {
         try {
             BufferedWriter bufWriter = new BufferedWriter(new FileWriter(filename, true));
 
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
             String line = transaction.getDate() + "|" +
-                    transaction.getTime() + "|" +
+                    transaction.getTime().format(timeFormatter) + "|" +
                     transaction.getDescription() + "|" +
                     transaction.getVendor() + "|" +
                     transaction.getAmount() + "|";
