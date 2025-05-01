@@ -15,6 +15,7 @@ This is a Java-based command-line application for managing financial transaction
   - Year-To-Date
   - Previous Year
   - Search by Vendor
+  - (Challenge Yourself task) Custom Search
 - Data is saved and loaded from `transactions.csv`
 
 ## Technologies Used
