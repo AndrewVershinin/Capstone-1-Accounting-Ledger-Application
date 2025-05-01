@@ -1,6 +1,6 @@
 # Capstone-1-Accounting-Ledger-Application
 
-This is a Java-based command-line application for managing financial transactions such as deposits and payments. It allows users to track transactions, view reports, and store all entries in a CSV file.
+This is a Java-based command-line application for managing financial transactions such as deposits and payments. It allows users to track transactions, view reports (custom as well), and store all entries in a CSV file.
 
 ## Features
 
